@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Регистрация
+{% endblock %}
+
+{% block content-v2 %}
+
+<div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="content-section col-md-8 col-md-offset-2">
+        <form method="POST" style="border: 1px solid black; margin: 4%; padding:10%; border-radius:1%;">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{ form|crispy}}
+            </fieldset>
+            <center>
+                <button style="" class="btn btn-outline-warning form-control" type="submit">
+                    <span class="glyphicon glyphicon-check"></span> Регистрация
+                </button>
+            </center>
+            <br />
+            <sub><a href="{% url "login" %}"
+                    style="text-decoration: none; color: blue; padding:3%; cursor:pointer;">Вход</a></sub>
+        </form>
+    </div>
+    <div class="col-md-2">
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Учебно занятие
+{% endblock %}
+
+{% block content-v2 %}
+
+<div class=" mx-4">
+
+    <div class="row">
+        {% if user.is_authenticated and user.is_superuser %}
+        <div class="content-section col-md-12 col-md-offset-2" style="border: 1px solid #FE5D37; border-radius:10px;">
+            <form method="POST" class="px-4 pt-4 mt-4">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ class_view.id }}" />
+                <input type="hidden" name="action" value="update">
+                <fieldset class="form-group">
+                    <div class="mb-3 row"> 
+                        <label for="name" class="form-label requiredField" style="width: 25%;">
+                        Име<span class="asteriskField">*</span> </label> 
+                        <input type="text" name="name" value="{{ class_view.name }}" autofocus="" autocapitalize="none" style="width: 75%;" autocomplete="name" maxlength="150" class="textinput form-control" required=""> 
+                    </div>
+                    <div class="mb-3 row"> 
+                        <label for="price" class="form-label requiredField" style="width: 25%;">
+                        Цена (BGN)<span class="asteriskField">*</span> </label> 
+                        <input type="text" name="price" value="{{ class_view.price }}" autofocus="" autocapitalize="none" style="width: 75%;" autocomplete="price" maxlength="150" class="textinput form-control" required=""> 
+                    </div>
+                    <div class="mb-3 row"> 
+                        <label for="age" class="form-label requiredField" style="width: 25%;">
+                        Възраст на децата<span class="asteriskField">*</span> Годишни </label> 
+                        <input type="text" name="age" value="{{ class_view.age }}" autofocus="" autocapitalize="none" style="width: 75%;" autocomplete="age" maxlength="150" class="textinput form-control" required=""> 
+                    </div>
+                    <div class="mb-3 row"> 
+                        <label for="time" class="form-label requiredField" style="width: 25%;">
+                        Време<span class="asteriskField">*</span> </label> 
+                        <input type="text" name="time" value="{{ class_view.time }}" autofocus="" autocapitalize="none" style="width: 75%;" autocomplete="time" maxlength="150" class="textinput form-control" required=""> 
+                    </div>
+                    <div class="mb-3 row"> 
+                        <label for="capacity" class="form-label requiredField" style="width: 25%;">
+                        Капацитет<span class="asteriskField">*</span> Брой деца</label> 
+                        <input type="text" name="capacity" value="{{ class_view.capacity }}" autofocus="" autocapitalize="none" style="width: 75%;" autocomplete="capacity" maxlength="150" class="textinput form-control" required=""> 
+                    </div>
+                    {% if users_list %}
+                        <div class="mb-3 row"> 
+                            <label for="teacher" class="form-label requiredField" style="width: 25%;">
+                                Учител<span class="asteriskField"></span></label> 
+                            <select name="teacher" class="form-select" style="width: 75%;">
+                                <option value=""></option>
+                                {% for user_t in users_list %}
+                                    <option value="{{ user_t.username }}" {% if user_t.username == class_view.teacher %} selected {% endif %} >{{ user_t.username }} <{{ user_t.email }}></option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    {% endif %}
+                </fieldset>
+                <center>
+                    <button style="" class="btn btn-outline-warning form-control"
+                        type="submit"><span class="glyphicon glyphicon-log-in"></span> РЕДАКТИРАЙ</button>
+                </center>
+            </form>
+            <form method="POST" class="px-4 pb-4 mb-4 mt-3">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ class_view.id }}" />
+                <input type="hidden" name="action" value="delete">
+                <button style="" class="btn btn-outline-danger form-control"
+                type="submit"><span class="glyphicon glyphicon-log-in"></span> ИЗТРИЙ</button>
+            </form>
+        </div>
+        {% else %}
+        <div class="content-section col-md-12 col-md-offset-2">
+            <div class="px-4 py-4 my-4" style="border: 1px solid #FE5D37; border-radius:10px;">
+                <fieldset class="form-group">
+                    <div class="mb-3 row"> 
+                        <label for="name" class="form-label requiredField" style="width: 25%;">
+                        Име<span class="asteriskField">*</span> </label> 
+                        <input type="text" name="name" value="{{ class_view.name }}" style="width: 75%;" readonly class="textinput form-control"> 
+                    </div>
+                    <div class="mb-3 row"> 
+                        <label for="price" class="form-label requiredField" style="width: 25%;">
+                        Цена (BGN)<span class="asteriskField">*</span> </label>  
+                        <input type="text" name="price" value="{{ class_view.price }}" style="width: 75%;" readonly maxlength="150" class="textinput form-control"> 
+                    </div>
+                    <div class="mb-3 row"> 
+                        <label for="age" class="form-label requiredField" style="width: 25%;">
+                        Възраст на децата<span class="asteriskField">*</span> Годишни </label>  
+                        <input type="text" name="age" value="{{ class_view.age }}" style="width: 75%;" readonly maxlength="150" class="textinput form-control"> 
+                    </div>
+                    <div class="mb-3 row"> 
+                        <label for="time" class="form-label requiredField" style="width: 25%;">
+                        Време<span class="asteriskField">*</span> </label>  
+                        <input type="text" name="time" value="{{ class_view.time }}" style="width: 75%;" readonly maxlength="150" class="textinput form-control"> 
+                    </div>
+                    <div class="mb-3 row"> 
+                        <label for="capacity" class="form-label requiredField" style="width: 25%;">
+                        Капацитет<span class="asteriskField">*</span> Брой деца</label>  
+                        <input type="text" name="capacity" value="{{ class_view.capacity }}" style="width: 75%;" readonly maxlength="150" class="textinput form-control"> 
+                    </div>
+                    <div class="mb-3 row"> 
+                        <label for="teacher" class="form-label requiredField" style="width: 25%;">
+                            Учител<span class="asteriskField"></span></label> 
+                        <input type="text" name="teacher" value="{{ class_view.teacher }}" style="width: 75%;" readonly maxlength="150" class="textinput form-control">
+                </fieldset>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% if user.is_authenticated and user.is_superuser or user.username == class_view.teacher %}
+    <div class="row">
+        <table class="table table-hover table-responsive">
+            <thead>
+                <th>Име на родител</th>
+                <th>Имейл на родител</th>
+                <th>Име на дете</th>
+                <th>Години на дете</th>
+                <th>Съобщение</th>
+            </thead>
+            <tbody>
+                {% for student in students_list %}
+                <tr>
+                    <td>{{ student.g_name }}</td>
+                    <td>{{ student.g_email }}</td>
+                    <td>{{ student.c_name }}</td>
+                    <td>{{ student.c_age }}</td>
+                    <td>{{ student.message }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    <div class="row">        
+        <!-- Appointment Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="bg-light rounded">
+                    <div class="row g-0">
+                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                            <div class="h-100 d-flex flex-column justify-content-center p-5">
+                                <h1 class="mb-4">Запиши дете</h1>
+                                <form method="POST" action="/classes/addstudent/">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="c_request" value="1" />
+                                    <div class="row g-3">
+                                        <div class="col-sm-12 mb-3">
+                                            <div class="form-floating">
+                                                <select class="form-select" name="class_id">
+                                                    <option value=""></option>
+                                                    {% for class_v in classes_list %}
+                                                    <option value="{{ class_v.id }}" {% if class_v.id == class_view.id %} selected {% endif %} >{{ class_v.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <label for="g_uclass">Учебно занятие</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-sm-6">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control border-0" name="g_name" placeholder="Имена на родител...">
+                                                <label for="gname">Имена на родител...</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-floating">
+                                                <input type="email" class="form-control border-0" name="g_email" placeholder="Имейл на родител...">
+                                                <label for="gmail">Имейл на родител...</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control border-0" name="c_name" placeholder="Имена на детето...">
+                                                <label for="cname">Имена на детето...</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control border-0" name="c_age" placeholder="Години на детето...">
+                                                <label for="cage">Години на детето...</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-floating">
+                                                <textarea class="form-control border-0" placeholder="Leave a message here" name="message" style="height: 100px"></textarea>
+                                                <label for="message">Съобщение...</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100 py-3" type="submit">Запиши</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
+                            <div class="position-relative h-100">
+                                <img class="position-absolute w-100 h-100 rounded" src="{% static 'img/appointment.jpg' %}" style="object-fit: cover;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Appointment End -->
+    </div>
+</div>
+
+{% endblock %}

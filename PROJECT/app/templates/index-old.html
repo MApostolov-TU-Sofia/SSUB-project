@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+</head>
+
+<body>
+<div class="navbar">
+    <a href="{% url 'home' %}" class="navbar-brand">Home</a>
+    <a href="{% url 'log' %}" class="navbar-item">Log Message</a>
+    <a href="{% url 'about' %}" class="navbar-item">About</a>
+    <a href="{% url 'contact' %}" class="navbar-item">Contact</a>
+</div>
+
+<div class="body-content">
+{% block content-v2 %}{% endblock %}
+<br/>
+{% block content %}
+    <h2>Logged messages</h2>
+
+    {% if message_list %}
+        <table class="message_list">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Message</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for message in message_list %}
+                <tr>
+                    <td>{{ message.log_date | date:'d M Y' }}</td>
+                    <td>{{ message.log_date | time:'H:i:s' }}</td>
+                    <td>
+                        {{ message.message }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No messages have been logged. Use the <a href="{% url 'log' %}">Log Message form</a>.</p>
+    {% endif %}
+{% endblock %}
+
+    <hr/>
+    <footer>
+        <p>&copy; {{ date | date:'l, d F, Y' }}</p>
+    </footer>
+</div>
+</body>
+</html>

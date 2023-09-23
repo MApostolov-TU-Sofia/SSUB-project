@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Профил
+{% endblock %}
+
+{% block content-v2 %}
+  {% if messages %}
+  {% for message in messages %}
+ 
+<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+<div class="d-flex">
+    <div class="toast-body">
+        {{ message }}
+    </div>
+    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+</div>
+</div>
+
+<script>
+    $('.toast').toast('show');
+</script>
+ 
+  {% endfor %}
+  {% endif %}
+  <div class="row  mx-4">
+    {% block start %}
+    {% if user.is_authenticated %}
+    <div class="content">
+      <div class="row">
+        <center><h1>Здравейте, {{user.username}}!</h1></center>
+      </div>
+      <div class="row">
+        <form method="POST" class="mr-4 px-4" style="border: 1px solid #FE5D37;border-radius: 10px;">
+          {% csrf_token %}
+          <fieldset class="form-group mt-4">
+              {{ form|crispy}}
+          </fieldset>
+          <center>
+            <button class="btn btn-outline-warning form-control mb-4" type="submit">
+              <span class="glyphicon glyphicon-log-in"></span> ПРОМЯНА
+            </button>
+          </center>
+        </form>
+      </div>
+    </div>
+    
+    {% else %}
+    <center><h1>Логнете се в профила</h1></center>
+    {% endif %}
+    {% endblock %}
+  </div>
+{% endblock %}

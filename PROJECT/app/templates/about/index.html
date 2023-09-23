@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    За Нас
+{% endblock %}
+
+{% block content-v2 %}
+
+        <!-- Page Header End -->
+        <div class="container-xxl py-5 page-header position-relative mb-5">
+            <div class="container py-5">
+                <h1 class="display-2 text-white animated slideInDown mb-4">За нас</h1>
+                <nav aria-label="breadcrumb animated slideInDown">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Начало</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">За нас</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- Page Header End -->
+
+
+        <!-- About Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <h1 class="mb-4 text-center">Кои сме ние</h1>
+                        <p class="mb-4">Синдром на Даун, или познат в генетиката като синдром тип тризомия е заболяване с рядка поява в обичайната честота на заболяванията или геномна аномалия основно при деца. То е заболяване със сериозни симптоми, които се отнасят както до видимо силно занижено умствено развитие, сериозни проблеми със сърцето, видими проблеми с подредбата, растежа на зъбите и други, които често са причина това заболяване да се приема като много сериозно.</p>
+                        <p class="mb-4">Генетичното заболяване се дължи на появата на трета хромозома в 21-вата хомоложна двойка, оттам и терминът „тризомия 21“. Успоредно с типичните за болестта симптоми на телесни аномалии, се наблюдават и намаляване на способностите на възприемане, умствена изостаналост, вродени сърдечни пороци.</p>
+                        <div class="row g-4 align-items-center">
+                           
+                        </div>
+                    </div>
+                    <div class="col-lg-6 about-img wow fadeInUp" data-wow-delay="0.5s">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <img class="img-fluid w-75 rounded-circle bg-light p-3" src="{% static 'img/about-1.jpg' %}" alt="">
+                            </div>
+                            <div class="col-6 text-start" style="margin-top: -150px;">
+                                <img class="img-fluid w-100 rounded-circle bg-light p-3" src="{% static 'img/about-2.jpg' %}" alt="">
+                            </div>
+                            <div class="col-6 text-end" style="margin-top: -150px;">
+                                <img class="img-fluid w-100 rounded-circle bg-light p-3" src="{% static 'img/about-3.jpg' %}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+
+        <!-- Call To Action Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="bg-light rounded">
+                    <div class="row g-0">
+                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
+                            <div class="position-relative h-100">
+                                <img class="position-absolute w-100 h-100 rounded" src="{% static 'img/call-to-action.jpg' %}" style="object-fit: cover;">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                            <div class="h-100 d-flex flex-column justify-content-center p-5">
+                                <h1 class="mb-4">Стани учител</h1>
+                                <p class="mb-4">
+                                </p>
+                                <a class="btn btn-primary py-3 px-5" href="/user/register">Запиши при нас<i class="fa fa-arrow-right ms-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Call To Action End -->
+{% endblock %}

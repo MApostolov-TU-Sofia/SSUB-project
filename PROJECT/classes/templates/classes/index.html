@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Учебни занятия
+{% endblock %}
+
+{% block content-v2 %}
+<div class=" mx-4">
+
+    <div class="row">
+        {% if user.is_authenticated and user.is_superuser %}
+        <div class="content-section col-md-12 col-md-offset-2">
+            <form method="POST" class="px-4 py-4 my-4" style="border: 1px solid #FE5D37; border-radius:10px;">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <div class="mb-3"> 
+                        <label for="name" class="form-label requiredField">
+                        Име<span class="asteriskField">*</span> </label> 
+                        <input type="text" name="name" autofocus="" autocapitalize="none" autocomplete="name" maxlength="150" class="textinput form-control" required=""> 
+                    </div>
+                    <div class="mb-3"> 
+                        <label for="price" class="form-label requiredField">
+                        Цена (BGN)<span class="asteriskField">*</span> </label> 
+                        <input type="text" name="price" autofocus="" autocapitalize="none" autocomplete="price" maxlength="150" class="textinput form-control" required=""> 
+                    </div>
+                    <div class="mb-3"> 
+                        <label for="age" class="form-label requiredField">
+                        Възраст на децата<span class="asteriskField">*</span> Годишни </label> 
+                        <input type="text" name="age" autofocus="" autocapitalize="none" autocomplete="age" maxlength="150" class="textinput form-control" required=""> 
+                    </div>
+                    <div class="mb-3"> 
+                        <label for="time" class="form-label requiredField">
+                        Време<span class="asteriskField">*</span> </label> 
+                        <input type="text" name="time" autofocus="" autocapitalize="none" autocomplete="time" maxlength="150" class="textinput form-control" required=""> 
+                    </div>
+                    <div class="mb-3"> 
+                        <label for="capacity" class="form-label requiredField">
+                        Капацитет<span class="asteriskField">*</span> Брой деца</label> 
+                        <input type="text" name="capacity" autofocus="" autocapitalize="none" autocomplete="capacity" maxlength="150" class="textinput form-control" required=""> 
+                    </div>
+                </fieldset>
+                <center>
+                    <button style="" class="btn btn-outline-warning form-control"
+                        type="submit"><span class="glyphicon glyphicon-log-in"></span> СЪЗДАЙ</button>
+                </center>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    <div class="row">
+
+    {% if classes_list %}
+    <div class="row g-4">
+        
+        {% for class_v in classes_list %}
+        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+            <div class="classes-item">
+                <div class="bg-light rounded-circle w-75 mx-auto p-3">
+                    <img class="img-fluid rounded-circle" src="img/classes-1.jpg" alt="">
+                </div>
+                <div class="bg-light rounded p-4 pt-5 mt-n5">
+                    <a class="d-block text-center h3 mt-3 mb-4" href="/classes/view/{{ class_v.id }}">{{ class_v.name }}</a>
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="d-flex align-items-center">
+                            <div class="ms-3">
+                                {% if class_v.teacher %}
+                                <h6 class="text-primary mb-1">{{ class_v.teacher }}</h6>
+                                <small>Teacher</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <span class="bg-primary text-white rounded-pill py-2 px-3" href="">{{ class_v.price }} лв.</span>
+                    </div>
+                    <div class="row g-1">
+                        <div class="col-4">
+                            <div class="border-top border-3 border-primary pt-2">
+                                <h6 class="text-primary mb-1">За възраст:</h6>
+                                <small>{{ class_v.age }} Годишни</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="border-top border-3 border-success pt-2">
+                                <h6 class="text-success mb-1">Време:</h6>
+                                <small>{{ class_v.time }}</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="border-top border-3 border-warning pt-2">
+                                <h6 class="text-warning mb-1">Капацитет:</h6>
+                                <small>{{ class_v.capacity }} Брой деца</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>No classes have been logged.</p>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}
